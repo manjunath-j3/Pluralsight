@@ -7,7 +7,13 @@ class App extends React.Component {
         return (
             <div className="container-fluid">
                 <Header/>
+
+                {/*comment-  children will be passed in from react-router. react-router
+                will pass in child components as properties onto the App component.
+                see route.js */}
+
                 {this.props.children}
+                
             </div>
         );
     }

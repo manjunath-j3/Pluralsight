@@ -21,6 +21,8 @@ export function loadCourses() {
 
         //here we call mock api getAllCourses (returns a promise)  to simulate server call
         return courseApi.getAllCourses().then( courses => {
+
+            /* dispatch an action so that reducers that care can update the state */
             dispatch(loadCoursesSuccess(courses));
         }).catch( error => {
             throw(error);

@@ -36,9 +36,9 @@ class CoursesPage extends React.Component {
         this.props.actions.createCourse(this.state.course);
     }
 
-    courseRow(course, index) {
+    /*courseRow(course, index) {
         return <div key={index}>{course.title}</div>;
-    }
+    }*/
     
     render() {
         //this is called destructuring. The value this.props.courses is now availalbe in {courses}

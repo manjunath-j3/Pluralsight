@@ -10,7 +10,7 @@ class App extends React.Component {
 
                 {/*comment-  children will be passed in from react-router. react-router
                 will pass in child components as properties onto the App component.
-                see route.js */}
+                see routes.js */}
 
                 {this.props.children}
                 

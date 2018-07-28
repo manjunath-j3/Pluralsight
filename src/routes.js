@@ -22,8 +22,8 @@ export default (
         <IndexRoute component={HomePage} />
 
         <Route path="courses" component={CoursesPage} />
-        <Route path="course/*" component={ManageCoursePage} />
-        <Route path="course:/id" component={ManageCoursePage} />
+        <Route path="course" component={ManageCoursePage} />
+        <Route path="course/:id" component={ManageCoursePage} />
 
         /* if the path is "/about" then we load the AboutPage */
         <Route path="about" component={AboutPage} />

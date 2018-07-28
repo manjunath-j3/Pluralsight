@@ -13,12 +13,12 @@ export function loadCoursesSuccess(courses) {
     return { type: types.LOAD_COURSES_SUCCESS, courses };
 }
 
-export function createCoursesSuccess(courses) {
-    return { type: types.CREATE_COURSE_SUCCESS, courses };
+export function createCourseSuccess(course) {
+    return { type: types.CREATE_COURSE_SUCCESS, course };
 }
 
-export function updateCoursesSuccess(courses) {
-    return { type: types.UDPATE_COURSE_SUCCESS, courses };
+export function updateCourseSuccess(course) {
+    return { type: types.UPDATE_COURSE_SUCCESS, course };
 }
 
 export function loadCourses() {
@@ -38,7 +38,7 @@ export function loadCourses() {
     };
 }
 
-export function saveCourses() {
+export function saveCourse(course) {
     
     //this is thunk function
     //A thunk always returns a function that accepts a dispatch

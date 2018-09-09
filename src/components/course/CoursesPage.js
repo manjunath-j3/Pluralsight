@@ -42,7 +42,7 @@ class CoursesPage extends React.Component {
         return <div key={index}>{course.title}</div>;
     }*/
     redirectToAddCoursePage() {
-        browserHistory.push('/course:/id');
+        browserHistory.push('/course');
     }
     
     render() {

@@ -1,5 +1,6 @@
 import * as types from './actionTypes';
 import courseApi from '../api/mockCourseApi';
+import {beginAjaxCall, ajaxCallError} from './ajaxStatusActions';
 
 export function createCourse(course) {
     return { type: types.CREATE_COURSE, course: course };
@@ -27,6 +28,8 @@ export function loadCourses() {
     //A thunk always returns a function that accepts a dispatch
     return function(dispatch) {
 
+        dispatch(beginAjaxCall());
+
         //here we call mock api getAllCourses (returns a promise)  to simulate server call
         return courseApi.getAllCourses().then( courses => {
 
@@ -44,12 +47,15 @@ export function saveCourse(course) {
     //A thunk always returns a function that accepts a dispatch
     return function(dispatch, getState) {
 
+        dispatch(beginAjaxCall());
+        
         //here we call mock api saveCourse (returns a promise)  to simulate server call
         return courseApi.saveCourse(course).then( savedCourse => {
 
             course.id ? dispatch(updateCourseSuccess(savedCourse)):             
             dispatch(createCourseSuccess(savedCourse));
         }).catch( error => {
+            dispatch(ajaxCallError(error));//this will stop the loading dots
             throw(error);
         });
     };

@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import * as courseActions from '../../actions/CourseActions';
 import {bindActionCreators} from 'redux';
 import CourseForm from './CourseForm';
+import taostr from 'toastr';
 
 class ManageCoursePage extends React.Component {
     constructor(props, context) {
@@ -10,7 +11,8 @@ class ManageCoursePage extends React.Component {
 
         this.state = {
             course: Object.assign({}, props.course),
-            errors: {}
+            errors: {},
+            saving: false
         };
 
         this.updateCourseState = this.updateCourseState.bind(this);
@@ -39,8 +41,31 @@ class ManageCoursePage extends React.Component {
     }
     
     saveCourse(event) {
+        
+        //set local state variable to indicate saving is in progress
+        //we will rest this to false after saving is complete.
+        this.setState({saving: true}); 
+
         event.preventDefault();
-        this.props.actions.saveCourse(this.state.course);
+        this.props.actions.saveCourse(this.state.course)
+        //.then -> wait until the save is complete, after save is complete then
+        //only we redirect to the /courses page
+        .then( () => this.redirect())
+        //catch error, for e.g you click Save button without filling anything in the controls on the form.
+        .catch( error => {
+            taostr.error(error);
+            this.setState({saving: false}); //make sure the saving flag is reset
+        });
+        
+    }
+
+    redirect() {
+
+        //saving is done, reset the variable
+        this.setState({saving: false});
+
+        taostr.success('Course saved');
+
         //this will change the url to /courses
         this.context.router.push('/courses');
     }
@@ -53,6 +78,7 @@ class ManageCoursePage extends React.Component {
                     onSave={this.saveCourse}
                     course={this.state.course}
                     errors={this.state.errors}
+                    saving={this.state.saving}
                 />
         );
     }
@@ -81,7 +107,6 @@ function getCourseById(courses, id) {
 }
 
 //state - state within redux store. 
-//state.xxxc - this is the authors defined in reducers/index.js
 
 function mapStateToProps(state, ownProps) {
     
